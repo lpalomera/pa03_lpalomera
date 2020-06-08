@@ -10,25 +10,29 @@
 using namespace std;
 
 int main(int argc, char *argv[]){
+    //Program takes a while to compile
+    //Not completely sure why
     avl a1;
    /* 
-    a1.avlInsert2("hello");
-    a1.avlInsert2("hello");
-    a1.avlInsert2("hello");
-    a1.avlInsert2("ahoy");
-    a1.avlInsert2("ahoy");
-    a1.avlInsert2("ahoy");
-    a1.avlInsert2("ahoy");
-    a1.avlInsert2("howdy");
-    cout<<a1.maxHeight()<<endl;
-    //a1.avlRangeSearch("b","y");
-    //a1.printPreOrder();
- */
+    a1.avlInsert2("m");
+    a1.avlInsert2("h");
+    a1.avlInsert2("h");
+    a1.avlInsert2("z");
+    a1.avlInsert2("e");
+    a1.avlInsert2("f");
+    a1.avlInsert2("b");
+    a1.avlInsert2("a");
+    //a1.avlInsert2("howdy");
+    a1.avlSearch("h");
+    cout<<a1.height()<<endl;
+    a1.avlRangeSearch("b","y");
+    a1.printPreOrder();
+  */
    
     ifstream myfile;
-    ///autograder/submission/PA1_dataset.txt
+    ///autograder/submission/PA3_dataset.txt
 
-    myfile.open("/autograder/submission/PA1_dataset.txt");
+    myfile.open("/autograder/submission/PA3_dataset.txt");
     char output[100];
     int z=0;
     if (myfile.is_open()) {
@@ -39,6 +43,7 @@ int main(int argc, char *argv[]){
             }
     }
     myfile.close();
+    cout<<a1.height()<<endl;
 
 
 

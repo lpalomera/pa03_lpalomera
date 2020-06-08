@@ -35,15 +35,21 @@ class avl {
     // returns the successor value of the given value or 0 if there is none
     string getSuccessor(string name) const; 
 
-    int maxHeight();
+    int height();
    private:  
     
     struct Node {
-	std::pair<std::string, int> word;
-	Node *left, *right; //, * parent;
+	int counter;
+    string word;
+
+    //std::pair<std::string, int> word;
+	
+    Node *left, *right; //, * parent;
 	// useful constructor:
     Node(string s="") :  left(0), right(0){//, parent(0) {
-        word.first=s;
+        //word.first=s;
+        word=s;
+        counter=1;
         }
     };
 

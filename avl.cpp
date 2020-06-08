@@ -26,7 +26,8 @@ void avl::printPreOrder(){ //const {
 }
 void avl::printPreOrder(Node *n){ //const {
     if(n!=NULL){
-        cout<<"("<<n->word.first<<":"<<n->word.second;
+        //cout<<"("<<n->word.first<<":"<<n->word.second;
+        cout<<"("<<n->word<<":"<<n->counter;
         }else{
             cout<<"(";
             return;
@@ -43,8 +44,9 @@ int avl::getBalance(Node *n)
     return height(n->left) - height(n->right);  
 }  
 
+//Height of a singleton node is 1
 int avl::height(Node* n){
-    if(n==NULL){return -1;}
+    if(n==NULL){return 0;}
     if( height(n->left)+1 > height(n->right)+1){
         return height(n->left)+1;
     }else{
@@ -53,7 +55,7 @@ int avl::height(Node* n){
     
     }
 
-int avl::maxHeight(){
+int avl::height(){
     return height(root);
     }
 
@@ -97,44 +99,49 @@ void avl::avlInsert(string name) {
 avl::Node* avl::insert(string name, Node *n) {
     if (n == NULL){  
         Node* temp= new Node;
-        temp->word.first=name;
-        temp->word.second=1;
+        temp->word=name;
+        temp->counter=1;
+        //temp->word.first=name;
+        //temp->word.second=1;
         temp->left = NULL;
         temp->right = NULL;
-        cout<< temp->word.first<< " inserted, new count = "<<temp->word.second<<endl;
+        //cout<< temp->word.first<< " inserted, new count = "<<temp->word.second<<endl;
+        cout<< temp->word<<" inserted, new count = "<<temp->counter<<endl;
         return temp;
     }
     
-    if (name < n->word.first)  
+    if (name < n->word/*.first*/)  
         n->left = insert(name, n->left);  
-    else if (name > n->word.first)  
+    else if (name > n->word/*.first*/)  
         n->right = insert(name, n->right);  
     else{   
-        n->word.second=n->word.second+1; 
-        cout<< n->word.first<< " inserted, new count = "<<n->word.second<<endl;
+        //n->word.second=n->word.second+1; 
+        //cout<< n->word.first<< " inserted, new count = "<<n->word.second<<endl;
+        n->counter=n->counter+1;
+        cout<<n->word<<" inserted, new count = "<<n->counter<<endl;
         return n;  
   }
     
     int balance = getBalance(n);
-    //cout<<"balance at this node is "<<balance<<endl;
+    //cout<<"balance at this node is "<<balance<<endl;dd
   
     // Left Left Case  
-    if (balance > 2 && name < n->left->word.first)  
+    if (balance > 2 && name < n->left->word  /*word.first*/  )  
         return rightRotate(n);  
   
     // Right Right Case  
-    if (balance < -2 && name > n->right->word.first)  
+    if (balance < -2 && name > n->right->word /*word.first*/)  
         return leftRotate(n);  
   
     // Left Right Case  
-    if (balance > 2 && name > n->left->word.first)  
+    if (balance > 2 && name > n->left->word  /*word.first*/)  
     {  
         n->left = leftRotate(n->left);  
         return rightRotate(n);  
     }  
   
     // Right Left Case  
-    if (balance < -2 && name < n->right->word.first)  
+    if (balance < -2 && name < n->right->word  /*word.first*/)  
     {  
         n->right = rightRotate(n->right);  
         return leftRotate(n);  
@@ -152,13 +159,14 @@ void avl::printRangeSearch(Node* n, string begin, string end) const{
     if(n==NULL){
         return;}
 
-    if(n->word.first.compare(begin)>0){
+    if( /*n->word.first.*/ n->word.compare(begin)>0){
         printRangeSearch(n->left,begin,end);
         }
-    if(n->word.first.compare(begin)>=0 && n->word.first.compare(end)<=0){
-        cout<<n->word.first<<endl;
+    if( /*n->word.first.*/  n->word.compare(begin)>=0 && /*n->word.first.*/ n->word.compare(end)<=0){
+        //cout<<n->word.first<<endl;
+        cout<<n->word<<endl;
         }
-    if(n->word.first.compare(end)<0){
+    if(/*n->word.first*/    n->word.compare(end)<0){
         printRangeSearch(n->right,begin,end);
         }
 
@@ -168,12 +176,12 @@ void avl::printRangeSearch(Node* n, string begin, string end) const{
 avl::Node* avl::getNodeFor(string name, Node* n) const{
     if(n==NULL){return 0;}
     while(n!=NULL){
-        if(n->word.first==name){
+        if(/*n->word.first*/ n->word==name){
            return n;
            }
-        if(name.compare(n->word.first)<0){
+        if(name.compare(n->word/*.first*/)<0){
            return getNodeFor(name,n->left);}
-        if(name.compare(n->word.first)>0){
+        if(name.compare(n->word/*.first*/)>0){
            return getNodeFor(name,n->right);}
            }     
   return NULL;
@@ -182,7 +190,7 @@ avl::Node* avl::getNodeFor(string name, Node* n) const{
 void avl::avlSearch(string name) const {
     Node* p1=getNodeFor(name,root);
     if(p1){
-        cout<<p1->word.first<<" found, count = "<<p1->word.second<<endl;
+        cout<<p1->word/*.first*/<<" found, count = "<< /*p1->word.second*/p1->counter<<endl;
         return;
         //return true;
         }
@@ -203,19 +211,22 @@ void avl::avlInsert2(string name) {
 avl::Node* avl::insert2(string name, Node *n) {
     if (n == NULL){  
         Node* temp= new Node;
-        temp->word.first=name;
-        temp->word.second=1;
+        temp->word=name;
+        temp->counter=1;
+        //temp->word.first=name;
+        //temp->word.second=1;
         temp->left = NULL;
         temp->right = NULL;
         return temp;
     }
     
-    if (name < n->word.first)  
+    if (name < n->word/*.first*/)  
         n->left = insert2(name, n->left);  
-    else if (name > n->word.first)  
+    else if (name > n->word/*.first*/)  
         n->right = insert2(name, n->right);  
     else{   
-        n->word.second=n->word.second+1; 
+        n->counter=n->counter+1;
+        //n->word.second=n->word.second+1; 
         return n;  
   }
   
@@ -223,22 +234,22 @@ avl::Node* avl::insert2(string name, Node *n) {
     //cout<<"balance at this node is "<<balance<<endl;
   
     // Left Left Case  
-    if (balance > 2 && name < n->left->word.first)  
+    if (balance > 2 && name < n->left->word/*.first*/)  
         return rightRotate(n);  
   
     // Right Right Case  
-    if (balance < -2 && name > n->right->word.first)  
+    if (balance < -2 && name > n->right->word/*.first*/)  
         return leftRotate(n);  
   
     // Left Right Case  
-    if (balance > 2 && name > n->left->word.first)  
+    if (balance > 2 && name > n->left->word/*.first*/)  
     {  
         n->left = leftRotate(n->left);  
         return rightRotate(n);  
     }  
   
     // Right Left Case  
-    if (balance < -2 && name < n->right->word.first)  
+    if (balance < -2 && name < n->right->word/*.first*/)  
     {  
         n->right = rightRotate(n->right);  
         return leftRotate(n);  
