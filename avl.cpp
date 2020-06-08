@@ -21,15 +21,19 @@ void avl::clear(Node *n) {
 }
 
 // print tree data in-order, with helper
-void avl::printInOrder(){ //const {
-    printInOrder(root);
+void avl::printPreOrder(){ //const {
+    printPreOrder(root);
 }
-void avl::printInOrder(Node *n){ //const {
-    if (n){
-    printInOrder(n->left);
-    cout << n->word.first << " and count: "<<n->word.second<<" and height: "<<height(n)<<endl;
-    printInOrder(n->right);
-    }
+void avl::printPreOrder(Node *n){ //const {
+    if(n!=NULL){
+        cout<<"("<<n->word.first<<":"<<n->word.second;
+        }else{
+            cout<<"(";
+            return;
+            }
+    printPreOrder(n->left);
+    printPreOrder(n->right);
+    cout<<")";
 }
 
 int avl::getBalance(Node *n)  
@@ -49,6 +53,9 @@ int avl::height(Node* n){
     
     }
 
+int avl::maxHeight(){
+    return height(root);
+    }
 
 avl::Node* avl::rightRotate(Node *y)  
 {  
@@ -82,30 +89,19 @@ avl::Node* avl::leftRotate(Node *x)
 
 // insert value in tree; return false if duplicate
 void avl::avlInsert(string name) {
-    // handle special case of empty tree first
-    /*
-    if (!root) {
-	root = new Node(name);
-	root->word.second=root->word.second+1;
-    cout<< root->word.first<< " inserted, count = "<<root->word.second<<endl;
-    return;
-    }*/
-    // otherwise use recursive helper
     root=insert(name, root);
     return;
 }
 
-// recursive helper for insert (assumes n is never 0)
+// recursive helper for insert
 avl::Node* avl::insert(string name, Node *n) {
-   // Perform the normal BST insertion 
     if (n == NULL){  
         Node* temp= new Node;
         temp->word.first=name;
         temp->word.second=1;
         temp->left = NULL;
         temp->right = NULL;
-        cout<< temp->word.first<< " inserted, count = "<<temp->word.second<<endl;
-        //root=temp;
+        cout<< temp->word.first<< " inserted, new count = "<<temp->word.second<<endl;
         return temp;
     }
     
@@ -115,18 +111,12 @@ avl::Node* avl::insert(string name, Node *n) {
         n->right = insert(name, n->right);  
     else{   
         n->word.second=n->word.second+1; 
-        cout<< n->word.first<< " inserted, count = "<<n->word.second<<endl;
+        cout<< n->word.first<< " inserted, new count = "<<n->word.second<<endl;
         return n;  
   }
-  
-    //    Get the balance factor of this ancestor  
-    //    node to check whether this node became  
-    //    unbalanced 
+    
     int balance = getBalance(n);
     //cout<<"balance at this node is "<<balance<<endl;
-  
-    // If this node becomes unbalanced, then  
-    // there are 4 cases  
   
     // Left Left Case  
     if (balance > 2 && name < n->left->word.first)  
@@ -152,42 +142,6 @@ avl::Node* avl::insert(string name, Node *n) {
   
     // return the (unchanged) node pointer *
     return n;  
-/**/
-
-
-    /*
-    if (name == n->word.first){
-	n->word.second=n->word.second+1;
-    cout<< n->word.first<< " inserted, new count = "<<n->word.second<<endl;
-    return;
-    }
-    //return false;
-    if (name.compare(n->word.first)<0) {
-	if (n->left)
-	    return insert(name, n->left);
-	else {
-        n->left = new Node(name);
-	    n->left->parent = n;
-	    n->left->word.second=n->left->word.second+1;
-        cout<< n->left->word.first<< " inserted, new count = "<<n->left->word.second<<endl;
-        return;
-        //return true;
-	}
-    }
-    else {
-	if (n->right)
-	    return insert(name, n->right);
-	else {
-	    n->right = new Node(name);
-	    n->right->parent = n;
-        n->right->word.second=n->right->word.second+1;
-        cout<< n->right->word.first<< " inserted, new count = "<<n->right->word.second<<endl;
-        return;
-        //return true;
-        }
-    }
-    */
-    return n;
 }
 
 void avl::avlRangeSearch(string begin, string end){
@@ -241,29 +195,18 @@ void avl::avlSearch(string name) const {
 
 
 void avl::avlInsert2(string name) {
-    // handle special case of empty tree first
-    /*
-    if (!root) {
-	root = new Node(name);
-	root->word.second=root->word.second+1;
-    cout<< root->word.first<< " inserted, count = "<<root->word.second<<endl;
-    return;
-    }*/
-    // otherwise use recursive helper
     root=insert2(name, root);
     return;
 }
 
 
 avl::Node* avl::insert2(string name, Node *n) {
-   // Perform the normal BST insertion 
     if (n == NULL){  
         Node* temp= new Node;
         temp->word.first=name;
         temp->word.second=1;
         temp->left = NULL;
         temp->right = NULL;
-        //root=temp;
         return temp;
     }
     
@@ -276,14 +219,8 @@ avl::Node* avl::insert2(string name, Node *n) {
         return n;  
   }
   
-    //    Get the balance factor of this ancestor  
-    //    node to check whether this node became  
-    //    unbalanced 
     int balance = getBalance(n);
     //cout<<"balance at this node is "<<balance<<endl;
-  
-    // If this node becomes unbalanced, then  
-    // there are 4 cases  
   
     // Left Left Case  
     if (balance > 2 && name < n->left->word.first)  
@@ -306,10 +243,6 @@ avl::Node* avl::insert2(string name, Node *n) {
         n->right = rightRotate(n->right);  
         return leftRotate(n);  
     }  
-  
-    // return the (unchanged) node pointer *
-    return n;  
-/**/
 
     return n;
 }

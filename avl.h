@@ -27,7 +27,7 @@ class avl {
     void avlRangeSearch(string begin, string end);
     
     //prints preorder traversal
-    void printInOrder(); //const;   
+    void printPreOrder(); //const;   
 
     // returns the predecessor value of the given value or 0 if there is none
     string getPredecessor(string name) const;
@@ -35,6 +35,7 @@ class avl {
     // returns the successor value of the given value or 0 if there is none
     string getSuccessor(string name) const; 
 
+    int maxHeight();
    private:  
     
     struct Node {
@@ -68,7 +69,7 @@ class avl {
     Node* insert2(string name, Node *n);
 
     //Helper function for printInOrder
-    void printInOrder(Node *n); //const;
+    void printPreOrder(Node *n); //const;
 
     //Helper function for print Range Search
     void printRangeSearch(Node* n,  string begin, string end) const;

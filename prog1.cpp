@@ -5,15 +5,30 @@
 #include <fstream>
 #include <sstream> 
 #include <string>
+#include <iterator>
+
 using namespace std;
 
 int main(int argc, char *argv[]){
-    //cout<<"Henlo World!"<<endl;
     avl a1;
-    
+   /* 
+    a1.avlInsert2("hello");
+    a1.avlInsert2("hello");
+    a1.avlInsert2("hello");
+    a1.avlInsert2("ahoy");
+    a1.avlInsert2("ahoy");
+    a1.avlInsert2("ahoy");
+    a1.avlInsert2("ahoy");
+    a1.avlInsert2("howdy");
+    cout<<a1.maxHeight()<<endl;
+    //a1.avlRangeSearch("b","y");
+    //a1.printPreOrder();
+ */
+   
     ifstream myfile;
-    ///autograder/submission/PA3_dataset.txt
-    myfile.open("PA3_dataset.txt");
+    ///autograder/submission/PA1_dataset.txt
+
+    myfile.open("/autograder/submission/PA1_dataset.txt");
     char output[100];
     int z=0;
     if (myfile.is_open()) {
@@ -25,21 +40,9 @@ int main(int argc, char *argv[]){
     }
     myfile.close();
 
-    /*
-    a1.avlInsert2("m");
-    a1.avlInsert2("h");
-    a1.avlInsert2("z");
-    a1.avlInsert2("e");
-    a1.avlInsert2("f");
-    a1.avlInsert2("b");
-    a1.avlInsert2("a");
-    a1.avlSearch("f");
-    a1.avlRangeSearch("b","y");
-    a1.printInOrder();
- */
 
- 
- string parse = argv[1];
+
+string parse = argv[1];
  vector<string> phrase;
  string word="";
  string::iterator it = parse.begin();
@@ -93,6 +96,6 @@ int main(int argc, char *argv[]){
       a1.avlSearch(phrase[1]);
       }
 
+    return 0;
+}
 
-return 0;
-    }
