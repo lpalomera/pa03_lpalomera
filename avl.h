@@ -27,7 +27,7 @@ class avl {
     void avlRangeSearch(string begin, string end);
     
     //prints preorder traversal
-    void printInOrder() const;   
+    void printInOrder(); //const;   
 
     // returns the predecessor value of the given value or 0 if there is none
     string getPredecessor(string name) const;
@@ -35,7 +35,7 @@ class avl {
     // returns the successor value of the given value or 0 if there is none
     string getSuccessor(string name) const; 
 
-    private:  
+   private:  
     
     struct Node {
 	std::pair<std::string, int> word;
@@ -51,6 +51,13 @@ class avl {
     
     //returns the node for a given value or NULL if none exists
     Node* getNodeFor(string name, Node* n) const; 
+
+    int height(Node *n);
+
+    Node *rightRotate(Node *y);
+    Node *leftRotate(Node *x);
+
+    int getBalance(Node* n);
     
     void clear(Node *n); // for destructor
     
@@ -58,10 +65,10 @@ class avl {
     Node* insert(string name, Node *n);
    
     //Helper function for insert without cout
-    void insert2(string name, Node *n);
+    Node* insert2(string name, Node *n);
 
     //Helper function for printInOrder
-    void printInOrder(Node *n) const;
+    void printInOrder(Node *n); //const;
 
     //Helper function for print Range Search
     void printRangeSearch(Node* n,  string begin, string end) const;
